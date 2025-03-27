@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Changing Name</title>
+    <title>Color Changing Name with Rain</title>
     <style>
         body {
             display: flex;
@@ -12,11 +12,14 @@
             height: 100vh;
             background-color: black;
             margin: 0;
+            overflow: hidden;
         }
         h1 {
             font-size: 50px;
             font-weight: bold;
             animation: colorChange 3s infinite alternate;
+            position: absolute;
+            z-index: 10;
         }
         @keyframes colorChange {
             0% { color: red; }
@@ -25,9 +28,49 @@
             75% { color: yellow; }
             100% { color: purple; }
         }
+        .rain {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        .raindrop {
+            position: absolute;
+            width: 3px; /* Increased thickness */
+            height: 20px; /* Increased length */
+            background-color: rgba(255, 255, 255, 0.8);
+            animation: rain-fall linear infinite;
+        }
+        @keyframes rain-fall {
+            from {
+                transform: translateY(-100vh);
+                opacity: 1;
+            }
+            to {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <h1>JEIREN MONDEJAR</h1>
+    <div class="rain"></div>
+    <script>
+        function createRain() {
+            const rainContainer = document.querySelector('.rain');
+            for (let i = 0; i < 150; i++) { // Increased raindrop count
+                let raindrop = document.createElement('div');
+                raindrop.classList.add('raindrop');
+                raindrop.style.left = Math.random() * 100 + 'vw';
+                raindrop.style.animationDuration = (Math.random() * 1.5 + 0.5) + 's';
+                rainContainer.appendChild(raindrop);
+            }
+        }
+        createRain();
+    </script>
 </body>
 </html>
+
